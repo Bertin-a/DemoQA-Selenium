@@ -3,6 +3,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class elements {
     public static WebDriver driver;
@@ -39,8 +42,17 @@ public class elements {
         driver.findElement(By.id("currentAddress")).sendKeys("Anaji");
         driver.findElement(By.id("permanentAddress")).sendKeys("Canada");
 
-        driver.findElement(By.xpath("//button[@id='submit']")).click();
+//        WebDriverWait wait = new WebDriverWait(driver, 10);
+//        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("submit")));
+//        element.click();
 
+        Actions actions = new Actions(driver);
+        WebElement button = driver.findElement(By.id("submit"));
+        actions.moveToElement(button).click().perform();
+
+
+
+        //driver.findElement(By.xpath("//button[@id='submit']")).click();
         String textBoxExpectedUrl= "https://demoqa.com/checkbox";
         driver.findElement(By.xpath("//body/div[@id='app']/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/ul[1]/li[2]")).click();
         String textBoxActualUrl= driver.getCurrentUrl();
@@ -50,10 +62,17 @@ public class elements {
         else
             System.out.println("The url does not match");
 
-        WebElement checkBox=driver.findElement(By.xpath( "//body/div[@id='app']/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/ol[1]/li[1]/span[1]/label[1]/span[1]/*[1]"));
-        checkBox.click();
-        //Boolean isSelectedCheckBox=checkBox.isSelected();
-        //System.out.println(isSelectedCheckBox);
+      driver.findElement(By.xpath( "//body/div[@id='app']/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/ol[1]/li[1]/span[1]/label[1]/span[1]/*[1]")).click();
+//        Boolean isSelectedCheckBox=checkBox.isSelected();
+//        System.out.println(isSelectedCheckBox);
+
+        driver.findElement(By.xpath("//body[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/ul[1]/li[3]")).click();
+        driver.findElement(By.xpath("//label[contains(text(),'Yes')]")).click();
+
+       boolean successMessageEl= driver.findElement(By.xpath("//body/div[@id='app']/div[1]/div[1]/div[2]/div[2]/div[2]/p[1]")).isDisplayed();
+        System.out.println(successMessageEl);
+
+
 
 
 
